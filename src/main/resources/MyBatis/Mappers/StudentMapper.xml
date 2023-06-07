@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yanisin.sims.model.mapper.StudentMapper">
+    <insert id="insertStudent">
+        INSERT INTO student(stu_id,
+                            stu_name,
+                            stu_sex,
+                            stu_age,
+                            stu_class_id)
+        VALUES (#{stu_id}, #{stu_name}, #{stu_sex},  #{stu_age}, #{stu_class_id})
+    </insert>
+
+    <update id="updateStudent">
+        UPDATE student
+        SET stu_name = #{stu_name},
+            stu_sex = #{stu_sex},
+            stu_age = #{stu_age},
+            stu_class_id = #{stu_class_id}
+        WHERE stu_id = #{stu_id}
+    </update>
+
+    <delete id="deleteStudentById">
+        DELETE FROM student WHERE stu_id = #{stu_id}
+    </delete>
+
+    <select id="selectStudentById" resultType="com.yanisin.sims.model.bean.Student">
+        SELECT * FROM student WHERE stu_id = #{stu_id}
+    </select>
+
+    <select id="selectAllStudent" resultType="com.yanisin.sims.model.bean.Student">
+        SELECT * FROM student
+    </select>
+
+    <select id="selectContainLesson" resultType="com.yanisin.sims.model.bean.Lesson">
+        SELECT * FROM lesson WHERE les_stu_id = #{stu_id}
+    </select>
+
+    <select id="selectBelongToClasse" resultType="com.yanisin.sims.model.bean.Classe">
+        SELECT * FROM classe WHERE class_id = ( SELECT stu_class_id FROM student WHERE stu_id = #{stu_id} )
+    </select>
+
+<!--    <select id="selectBelongToDepartment" resultType="com.yanisin.sims.model.bean.Department">-->
+<!--        SELECT * FROM department WHERE dept_id = ( SELECT stu_class_id FROM student WHERE stu_id = #{stu_id} )-->
+<!--    </select>-->
+</mapper>

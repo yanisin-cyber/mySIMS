@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanisin.sims.model.mapper.CourseMapper">
+    <insert id="insertCourse">
+        INSERT INTO course(cse_id,
+                           cse_name,
+                           cse_credit,
+                           cse_period,
+                           cse_semster)
+        VALUES (#{cse_id}, #{cse_name}, #{cse_credit},  #{cse_period}, #{cse_semster})
+    </insert>
+
+    <update id="updateCourse">
+        UPDATE course
+        SET cse_name = #{cse_name},
+            cse_credit = #{cse_credit},
+            cse_period = #{cse_period},
+            cse_semster = #{cse_semster}
+        WHERE cse_id = #{cse_id}
+    </update>
+
+    <delete id="deleteCourseById">
+        DELETE FROM course WHERE cse_id = #{cse_id}
+    </delete>
+
+    <select id="selectCourseById" resultType="com.yanisin.sims.model.bean.Course">
+        SELECT * FROM course WHERE cse_id = #{cse_id}
+    </select>
+
+    <select id="selectAllCourse" resultType="com.yanisin.sims.model.bean.Course">
+        SELECT * FROM course
+    </select>
+
+    <select id="selectContainStudent" resultType="com.yanisin.sims.model.bean.Student">
+        SELECT * FROM student WHERE stu_id IN( SELECT les_stu_id FROM lesson WHERE les_cse_id = #{cse_id} )
+    </select>
+
+    <select id="selectBelongToTeacher" resultType="com.yanisin.sims.model.bean.Teacher">
+        SELECT * FROM teacher WHERE tch_id = ( SELECT les_tch_id FROM lesson WHERE les_cse_id = #{cse_id} )
+    </select>
+</mapper>

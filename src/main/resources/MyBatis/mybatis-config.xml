@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入配置文件 -->
+    <properties resource="dbconfig.properties" />
+
+    <typeAliases>
+        <typeAlias type="com.yanisin.sims.model.bean.Department" alias="Dept"/>
+    </typeAliases>
+    <!-- 配置数据库连接环境 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 引入映射文件 MapperInterface:Mapper.xml -->
+    <mappers>
+        <mapper resource="MyBatis/Mappers/DepartmentMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/ClasseMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/StudentMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/TeacherMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/CourseMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/LessonMapper.xml"/>
+        <mapper resource="MyBatis/Mappers/UserMapper.xml"/>
+    </mappers>
+</configuration>
